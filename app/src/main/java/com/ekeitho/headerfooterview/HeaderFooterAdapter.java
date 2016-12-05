@@ -18,7 +18,7 @@ class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int[] list;
     private View headerView;
     private int footerResource;
-    private int mode;
+    private int STATE;
 
     // this is just for demonstration that you can pass
     // either a view or a resource identifier
@@ -26,7 +26,7 @@ class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.list = list;
         this.headerView = headerView;
         this.footerResource = resource;
-        mode = Utils.getSetupMode(headerView, resource);
+        STATE = Utils.getSetupMode(headerView, resource);
     }
 
     private class HeaderFooterView extends RecyclerView.ViewHolder {
@@ -60,7 +60,7 @@ class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         // if there is both footerResource and header
-        switch (mode) {
+        switch (STATE) {
             case BOTH:
                 if (position == 0) {
                     return HEADER;
@@ -108,7 +108,7 @@ class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        switch (mode) {
+        switch (STATE) {
             case BOTH:
                 // if both, return 2 additional for header & footerResource
                 return list.length + 2;
